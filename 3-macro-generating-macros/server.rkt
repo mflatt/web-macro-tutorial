@@ -42,8 +42,8 @@
 ;; 2. Adjust `define-tag` so that multiple content expressions are
 ;;    allowed.
 ;;
-;; 3. Adjust `define-tag` to that it allows attribute parentheses to
-;;    be skipped.
+;; 3. Adjust `define-tag` to that it allows empty attribute
+;;    parentheses to be omitted.
 ;;
 ;;    That is,
 ;;       (html (body (div ([style "color: blue"])
@@ -51,7 +51,7 @@
 ;;    should work, or even
 ;;       (html (body (div "Hello")))
 ;;
-;;  4. Improve the static checking in `div`, `a`, etc. to check
+;;  4. Improve the static checking in `div`, `a`, etc., to check
 ;;     that no attribute is duplicated.
 ;;
 ;;     For example,

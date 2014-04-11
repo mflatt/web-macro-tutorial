@@ -22,7 +22,7 @@
 ;;
 ;; 4. Include an right-arrow in the server's output by using the
 ;;    symbol 'rarr as content. Symbols that are used as content (i.e.,
-;;    not after an open parenthesis are treated as HTML entity names.
+;;    not after an open parenthesis) are treated as HTML entity names.
 ;;
 ;; 5. The `current-seconds` function returns the current time in
 ;;    seconds since the epoch, and the `number->string` function
