@@ -38,7 +38,7 @@ as follows:
     42
 
 and click the **Run** button (or hit F5 or Ctrl-R or Cmd-R). The
-bottom area in DrRackete's window is called the _interactions area_ or
+bottom area in DrRacket's window is called the _interactions area_ or
 _read-eval-print loop_ (_REPL_), and it will look like this:
 
     Welcome to DrRacket
@@ -48,9 +48,8 @@ _read-eval-print loop_ (_REPL_), and it will look like this:
 
 That's because `42` is Racket expression, evaluating the expression
 produces the value 42, and the value is shown in the interactions
-window. You could also type the expression `43` after the `>` prompt
-in the interactions area, and the value of that expression will be
-shown:
+area. You could also type the expression `43` after the `>` prompt in
+the interactions area, and the value of that expression is shown:
 
     Welcome to DrRacket
     Language: racket
@@ -60,14 +59,14 @@ shown:
     >
 
 As `42` and `43` illustrate, the definitions and interactions areas
-support mostly the same kinds of expressions. There are some technical
-differences, because DrRacket can see everything in the definitions
-area at once, while it sees input in the interactions window
-incrementally.
+support mostly the same kinds of expressions. (Technically, there are
+some differences, because DrRacket can see everything in the
+definitions area at once, while it sees input in the interactions area
+incrementally.)
 
 More significantly, when you click **Run**, the interactions area is
-reset, while the definitions area is the part you can save as a source
-file. So, we put our program in the definitions area, and we use the
+reset, while the definitions area can be saves as a source file. So,
+we put our program in the definitions area, and we use the
 interactions area to explore it.
 
 
@@ -75,7 +74,7 @@ If You've Seen Lisp/Scheme/Racket Before
 ----------------------------------------
 
 You're ready to go. The rest of this is a crash course in Racket
-notation for those who have never seen parentheses before.
+notation for those who have never used parentheses before.
 
 
 Function Calls and Definitions (5 minutes)
@@ -86,7 +85,7 @@ generally formed by using parentheses and putting a form name or
 function/operator to call after the open parenthesis.
 
 For example, you can get 43 by taking the absolute value of -43
-using the `abs` functions:
+using the `abs` function:
 
     Welcome to DrRacket
     Language: racket
@@ -94,7 +93,7 @@ using the `abs` functions:
     43
     >
 
-Or you could get the same result by adding 42 and 1 with with `+`
+Or you could get the same result by adding 42 and 1 with the `+`
 function:
 
     Welcome to DrRacket
@@ -105,11 +104,11 @@ function:
 
 It's important to put a space after `+`, because `+43` means positive
 43. Also, extra parentheses are never ok, because parentheses mean
-function calls. That is, `(43)` would mean calling the function 43
+function calls. For example, `(43)` would mean calling the function 43
 with zero arguments (but 43 is not a function, so it's an error).
 
 To define your own function, typically in the definitions area, use
-the `define` form, and then your function can be called just like the
+the `define` form, and then your function can be called just like
 predefined functions:
 
     #lang racket
@@ -142,8 +141,8 @@ arguments, so the above program could also be
     (neg-abs 42)
 
 When you click **Run** for that program, the result of `(neg-abs 42)`
-prints, and `neg-abs` is available for further exploration:
-
+prints, and `neg-abs` is available for further exploration in the
+interactions area:
 
     Welcome to DrRacket
     Language: racket
@@ -161,8 +160,8 @@ Strings are written with double quotes: `"hello"`
 Booleans are written as `#t` or `#f`.
 
 Symbols are similar to strings, but written with a leading single
-quote, and with the same delimiting rules as identifier: `'hello`.
-    
+quote, and with the same delimiting rules as identifiers: `'hello`.
+
     Welcome to DrRacket
     Language: racket
     > "hello"
@@ -188,7 +187,7 @@ Lists (5 minutes, optional)
 
 _You can stop here. We'll cover this part at the start of the the tutorial._
 
-The name `empty` is defined as the empty list, and the `cons` function
+The name `empty` is defined as the empty list. The `cons` function
 adds an item to the from of a list. The `first` function extracts the
 first item of a (non-empty) list, and the `rest` function extracts all
 items of a (non-empty) list except the first.
@@ -209,7 +208,7 @@ Lists usually print in a more compact form than using `empty` and
 `cons` or even `list`. They print using a single quote --- the same
 one used for symbols --- followed by an open parenthesis, each list
 item, and a closing parenthesis.
-    
+
     > (cons "one" empty)
     '("one")
     > (cons 1 empty)
@@ -219,18 +218,18 @@ item, and a closing parenthesis.
 
 The single quote used to start a list is implicitly added to any
 symbol or list inside of a printed list, which makes the printing of
-such lists especially compact:
+lists with symbols and nested lists especially compact:
 
     > (list 'one 'two 'three)
     '(one two three)
     > (list 'one (list 2 'three) "four")
     '(one (2 three) "four")
 
-You can use a single quote instead of `cons` and `list` to form a list
-expression. Note that the elements of such a list are not themselves
-expressions, though, since the quote distibutes to the
-elements. Instead, identifiers and parentheses in the quoted list form
-symbols and lists:
+A single quote works for lists not only in printing, but also in an
+expression, instead of calling the `cons` or `list` functions. Note
+that the elements of a quoted list are not themselves expressions,
+since the quote distibutes to the elements. Instead, identifiers and
+parentheses in the quoted list form symbols and lists:
 
     > '(1 2 3)
     '(1 2 3)
@@ -245,9 +244,22 @@ symbols and lists:
 
 If you want both a shorthand for a list and an expression to be
 evaluated within the list, use a backquote instead of a quote, and
-then use a comma to escape to expression mode:
+then use a comma to escape into expression mode:
 
     > `(1 ,(abs -2) 3)
     '(1 2 3)
     > `(1 (2 (3 ,(+ 2 2)) 5) ,(abs -6))
     '(1 (2 (3 4) 5) 6)
+
+That a function call and a list construction can look so similar might
+seem confusing, at first:
+
+    > (+ 42 1)
+    43
+    > '(+ 42 1)
+    '(+ 42 1)
+
+but this similarly is very much on purpose. The correspondence between
+expressions and lists is not exactly the foundation for writing macros
+that define new syntactic forms and languages, but it's a step in that
+direction.
