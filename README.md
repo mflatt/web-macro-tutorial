@@ -259,7 +259,7 @@ seem confusing, at first:
     > '(+ 42 1)
     '(+ 42 1)
 
-but this similarly is very much on purpose. The correspondence between
+but this similarity is very much on purpose. The correspondence between
 expressions and lists is not exactly the foundation for writing macros
 that define new syntactic forms and languages, but it's a step in that
 direction.
